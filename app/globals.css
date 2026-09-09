@@ -225,6 +225,16 @@ input:focus-visible {
   box-shadow: 0 0 0 4px rgba(255, 182, 77, 0.1);
 }
 
+.status-pill.live .status-dot {
+  background: var(--down);
+  box-shadow: 0 0 0 4px rgba(39, 201, 151, 0.1);
+}
+
+.status-pill.fallback .status-dot {
+  background: var(--up);
+  box-shadow: 0 0 0 4px rgba(255, 83, 100, 0.1);
+}
+
 .icon-button,
 .watch-button {
   display: grid;
@@ -263,6 +273,12 @@ input:focus-visible {
   background: rgba(255, 182, 77, 0.06);
   color: #a99475;
   font-size: 13px;
+}
+
+.demo-note.error {
+  border-color: rgba(255, 83, 100, 0.2);
+  background: rgba(255, 83, 100, 0.06);
+  color: #c8878e;
 }
 
 .metric-grid {
@@ -326,7 +342,8 @@ input:focus-visible {
 .metric-main { position: relative; z-index: 1; gap: 12px; margin-top: 17px; }
 .metric-main > strong { font-family: var(--font-mono); font-size: clamp(23px, 2vw, 30px); font-weight: 650; letter-spacing: -0.055em; }
 .metric-main > strong span { margin-left: 3px; font-family: var(--font-sans); font-size: 14px; letter-spacing: 0; }
-.metric-main > span.up { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 14px; font-weight: 650; }
+.metric-main > span.up,
+.metric-main > span.down { display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 14px; font-weight: 650; }
 .metric-foot { gap: 7px; margin-top: 11px; color: #667383; font-size: 13px; }
 .metric-foot.spread { justify-content: space-between; margin-top: 7px; font-size: 12px; }
 .breadth-numbers span { color: #475362; }
@@ -590,6 +607,14 @@ input:focus-visible {
 
 .leader-tip svg { flex: 0 0 auto; color: #b88a4f; }
 
+.table-state {
+  display: grid;
+  min-height: 190px;
+  place-items: center;
+  color: #697686;
+  font-size: 13px;
+}
+
 .bottom-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
@@ -603,9 +628,46 @@ input:focus-visible {
 .index-legend strong { font-family: var(--font-mono); font-size: 13px; }
 .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
 .legend-dot.red { background: var(--up); box-shadow: 0 0 0 4px rgba(255, 83, 100, 0.1); }
-.market-chart { padding: 18px 20px 15px; }
-.market-chart svg { width: 100%; height: 168px; overflow: visible; }
-.chart-times { display: flex; justify-content: space-between; margin-top: 7px; color: #4e5a68; font-family: var(--font-mono); font-size: 10px; }
+.index-overview {
+  display: grid;
+  padding: 7px 20px 12px;
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: minmax(100px, 0.75fr) minmax(145px, 1fr) minmax(120px, 1.4fr) minmax(100px, 0.65fr);
+  align-items: center;
+  gap: 18px;
+  min-height: 72px;
+  border-bottom: 1px solid rgba(48, 60, 74, 0.42);
+}
+
+.index-row:last-child { border-bottom: 0; }
+
+.index-name,
+.index-price,
+.index-amount {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.index-name strong { color: #dfe4eb; font-size: 14px; font-weight: 620; }
+.index-name span,
+.index-amount span { color: #5c6877; font-size: 11px; }
+.index-price { align-items: flex-end; }
+.index-price strong,
+.index-price span,
+.index-amount strong { font-family: var(--font-mono); }
+.index-price strong { color: #dfe4eb; font-size: 15px; font-weight: 630; }
+.index-price span { font-size: 12px; font-weight: 650; }
+.index-move-track { height: 6px; overflow: hidden; border-radius: 8px; background: #1b2530; }
+.index-move-track i { display: block; height: 100%; border-radius: inherit; }
+.index-move-track i.positive { background: linear-gradient(90deg, #983c48, var(--up)); }
+.index-move-track i.negative { background: linear-gradient(90deg, #286b5b, var(--down)); }
+.index-amount { align-items: flex-end; }
+.index-amount strong { color: #aab3bf; font-size: 12px; font-weight: 600; }
 .total-count { color: #667383; font-size: 12px; }
 
 .distribution-bars { display: grid; gap: 10px; padding: 18px 20px 20px; }
@@ -670,6 +732,8 @@ input:focus-visible {
   .leader-table td:last-child { width: 20%; }
   .stock-cell small { max-width: 145px; }
   .index-legend { width: 100%; justify-content: space-between; }
+  .index-row { grid-template-columns: minmax(95px, 1fr) minmax(115px, 1fr) 80px; gap: 10px; }
+  .index-move-track { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
